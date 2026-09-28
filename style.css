@@ -42,3 +42,5 @@
  .ribbon span{font-size:21px}
  .ribbon i{display:flex;flex-shrink:0;align-items:center}
 }
+
+@media(max-width:700px){.hero .actions .pill{word-break:keep-all}.hero .actions .pill span{flex-shrink:0}}
