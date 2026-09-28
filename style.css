@@ -25,3 +25,20 @@
  .hero-art .video-toggle{right:50%;transform:translateX(50%);bottom:12px;padding:7px 10px;font-size:11px;white-space:nowrap;min-height:44px}
 }
 @media(max-width:370px){.hero{width:calc(100% - 28px);gap:8px}.hero h1{font-size:21px}.hero .actions .pill{padding:10px;font-size:11px}.hero-copy .eyebrow{font-size:8px}.hero-art .circle-type{width:58px;height:58px;font-size:15px}.hero-art .circle-type em{font-size:7px}}
+
+/* Keep the mobile brand film and typography consistent in in-app browsers. */
+.ribbon i svg{display:block}
+@media(max-width:700px){
+ .hero{align-items:start;padding-top:20px}
+ .hero-art{margin-top:30px;height:clamp(280px,82vw,380px)}
+ .hero .intro{font-size:12px;line-height:1.85;letter-spacing:-.025em}
+ .hero .intro br{display:block}
+ .hero-art .circle-type{right:0;width:64px;height:64px;font-size:16px;line-height:1.2}
+ .hero-art .circle-type em{font-size:7px;letter-spacing:-.04em;white-space:nowrap}
+ .hero-foot{column-gap:10px;row-gap:3px}
+ .hero-foot i{display:none}
+ .hero-foot span{white-space:nowrap}
+ .ribbon{gap:25px;padding:14px 0}
+ .ribbon span{font-size:21px}
+ .ribbon i{display:flex;flex-shrink:0;align-items:center}
+}
