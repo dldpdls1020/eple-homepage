@@ -5,21 +5,19 @@ document.querySelectorAll('[data-image]').forEach(button=>button.addEventListene
 const heroVideo=document.querySelector('#hero-video');
 const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
 if(heroVideo){
- const toggle=document.querySelector('.video-toggle');
  const fallback=document.querySelector('.video-fallback');
  let userPaused=false;
  heroVideo.muted=true;heroVideo.defaultMuted=true;heroVideo.playsInline=true;
- heroVideo.controls=false;toggle.hidden=false;
- const sync=()=>{toggle.textContent=heroVideo.paused?'▶ 영상 재생':'Ⅱ 일시정지';toggle.setAttribute('aria-label',heroVideo.paused?'히어로 영상 재생':'히어로 영상 일시정지');};
+ heroVideo.controls=false;
+ const sync=()=>{};
  const play=()=>heroVideo.play().catch(sync);
  const autoPlay=()=>{if(!motion.matches&&!userPaused&&!document.hidden&&heroVideo.paused&&!heroVideo.hidden)play();};
- const fail=()=>{heroVideo.hidden=true;fallback.hidden=false;toggle.hidden=true;};
+ const fail=()=>{heroVideo.hidden=true;fallback.hidden=false;};
  heroVideo.addEventListener('play',sync);heroVideo.addEventListener('pause',sync);
  heroVideo.addEventListener('error',fail);heroVideo.querySelector('source').addEventListener('error',fail);
  heroVideo.addEventListener('canplay',autoPlay);
- toggle.addEventListener('click',()=>{if(heroVideo.paused){userPaused=false;play();}else{userPaused=true;heroVideo.pause();}});
  // Retry once on a direct gesture if the browser initially blocks autoplay.
- document.addEventListener('touchend',event=>{if(!toggle.contains(event.target))autoPlay();},{once:true,passive:true});
+ document.addEventListener('touchend',autoPlay,{once:true,passive:true});
  document.addEventListener('visibilitychange',()=>{if(document.hidden)heroVideo.pause();else autoPlay();});
  window.addEventListener('pageshow',autoPlay);
  motion.addEventListener('change',()=>{heroVideo.autoplay=!motion.matches;if(motion.matches)heroVideo.pause();else autoPlay();});
