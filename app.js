@@ -6,14 +6,11 @@ const heroVideo=document.querySelector('#hero-video');
 const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
 if(heroVideo){
  const fallback=document.querySelector('.video-fallback');
- let userPaused=false;
  heroVideo.muted=true;heroVideo.defaultMuted=true;heroVideo.playsInline=true;
  heroVideo.controls=false;
- const sync=()=>{};
- const play=()=>heroVideo.play().catch(sync);
- const autoPlay=()=>{if(!motion.matches&&!userPaused&&!document.hidden&&heroVideo.paused&&!heroVideo.hidden)play();};
+ const play=()=>heroVideo.play().catch(()=>{});
+ const autoPlay=()=>{if(!motion.matches&&!document.hidden&&heroVideo.paused&&!heroVideo.hidden)play();};
  const fail=()=>{heroVideo.hidden=true;fallback.hidden=false;};
- heroVideo.addEventListener('play',sync);heroVideo.addEventListener('pause',sync);
  heroVideo.addEventListener('error',fail);heroVideo.querySelector('source').addEventListener('error',fail);
  heroVideo.addEventListener('canplay',autoPlay);
  // Retry once on a direct gesture if the browser initially blocks autoplay.
@@ -21,7 +18,7 @@ if(heroVideo){
  document.addEventListener('visibilitychange',()=>{if(document.hidden)heroVideo.pause();else autoPlay();});
  window.addEventListener('pageshow',autoPlay);
  motion.addEventListener('change',()=>{heroVideo.autoplay=!motion.matches;if(motion.matches)heroVideo.pause();else autoPlay();});
- heroVideo.autoplay=!motion.matches;if(motion.matches)heroVideo.pause();sync();autoPlay();
+ heroVideo.autoplay=!motion.matches;if(motion.matches)heroVideo.pause();autoPlay();
 }
 // Content stays visible even when observers or animation are unavailable.
 if('IntersectionObserver' in window && Element.prototype.animate){
@@ -35,6 +32,6 @@ if('IntersectionObserver' in window && Element.prototype.animate){
    running.add(animation);animation.onfinish=()=>running.delete(animation);
   });
  },{threshold:0.12});
- document.querySelectorAll('.concern-card,.reason-list article,.work,.director-copy,.steps article,.review-card,.offer-card,.space-info,.closing h2').forEach(el=>observer.observe(el));
+ document.querySelectorAll('.sg-hero-content,.chapter h2,.worry-grid p,.split-layout,.work,.process-grid article,.review-card,.offer-card,.comparison,.retouch-note').forEach(el=>observer.observe(el));
  motion.addEventListener('change',()=>{if(motion.matches){running.forEach(animation=>animation.cancel());running.clear();}});
 }
