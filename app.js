@@ -32,6 +32,6 @@ if('IntersectionObserver' in window && Element.prototype.animate){
    running.add(animation);animation.onfinish=()=>running.delete(animation);
   });
  },{threshold:0.12});
- document.querySelectorAll('.sg-hero-content,.chapter h2,.worry-grid p,.split-layout,.work,.process-grid article,.review-card,.offer-card,.comparison,.retouch-note').forEach(el=>observer.observe(el));
+ document.querySelectorAll('.sg-hero-content,.story-section h2,.story-quote,.story-evidence,.story-points article,.work,.review-card,.offer-card').forEach(el=>observer.observe(el));
  motion.addEventListener('change',()=>{if(motion.matches){running.forEach(animation=>animation.cancel());running.clear();}});
 }
