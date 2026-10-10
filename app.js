@@ -2,24 +2,23 @@ const lightbox=document.querySelector('#lightbox');
 document.querySelectorAll('dialog').forEach(dialog=>{dialog.querySelectorAll('.close,.close-action').forEach(button=>button.addEventListener('click',()=>dialog.close()));dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});});
 document.querySelectorAll('[data-image]').forEach(button=>button.addEventListener('click',()=>{const img=lightbox.querySelector('img');img.src=button.dataset.image;img.alt=button.dataset.caption;lightbox.querySelector('p').textContent=button.dataset.caption;lightbox.showModal();}));
 
-const heroVideo=document.querySelector('#hero-video');
 const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
-if(heroVideo){
- const fallback=document.querySelector('.video-fallback');
- heroVideo.muted=true;heroVideo.defaultMuted=true;heroVideo.playsInline=true;
- heroVideo.controls=false;
- const play=()=>heroVideo.play().catch(()=>{});
- const autoPlay=()=>{if(!motion.matches&&!document.hidden&&heroVideo.paused&&!heroVideo.hidden)play();};
- const fail=()=>{heroVideo.hidden=true;fallback.hidden=false;};
- heroVideo.addEventListener('error',fail);heroVideo.querySelector('source').addEventListener('error',fail);
- heroVideo.addEventListener('canplay',autoPlay);
- // Retry once on a direct gesture if the browser initially blocks autoplay.
- document.addEventListener('touchend',autoPlay,{once:true,passive:true});
- document.addEventListener('visibilitychange',()=>{if(document.hidden)heroVideo.pause();else autoPlay();});
- window.addEventListener('pageshow',autoPlay);
- motion.addEventListener('change',()=>{heroVideo.autoplay=!motion.matches;if(motion.matches)heroVideo.pause();else autoPlay();});
- heroVideo.autoplay=!motion.matches;if(motion.matches)heroVideo.pause();autoPlay();
-}
+const slides=[...document.querySelectorAll('.hero-slide')];
+let slideIndex=0, slideTimer;
+const nextSlide=()=>{
+ const next=(slideIndex+1)%slides.length;
+ if(!slides[next].complete||!slides[next].naturalWidth)return;
+ slides[slideIndex].classList.remove('is-active');slides[slideIndex].setAttribute('aria-hidden','true');
+ slideIndex=next;
+ slides[slideIndex].classList.add('is-active');slides[slideIndex].setAttribute('aria-hidden','false');
+};
+const syncSlideshow=()=>{
+ clearInterval(slideTimer);
+ if(slides.length>1&&!document.hidden&&!motion.matches)slideTimer=setInterval(nextSlide,3000);
+};
+document.addEventListener('visibilitychange',syncSlideshow);
+motion.addEventListener('change',syncSlideshow);
+syncSlideshow();
 // Replay a small settling bounce only after an element leaves and re-enters view.
 // The document remains visible if motion is disabled or animation is unavailable.
 if('IntersectionObserver' in window && Element.prototype.animate){
