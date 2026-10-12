@@ -77,3 +77,6 @@ body,button,.hero-brand,.brand,.hero-brand span{font-family:'Noto Sans KR',sans-
 /* Beige signature beside the offer title, keeping photographs unobstructed. */
 .hero-title-row{display:flex;align-items:center;gap:24px;margin:0 0 24px}.hero-title-row .title-logo{display:block;flex:0 0 auto;width:100px;height:auto;mix-blend-mode:multiply}.sg-hero .hero-title-row h1{margin:0}
 @media(max-width:600px){.hero-title-row{gap:12px;margin-bottom:20px}.hero-title-row .title-logo{width:62px}.sg-hero .hero-title-row h1{font-size:clamp(23px,6.8vw,32px);letter-spacing:-.06em}}
+
+/* Place the signature after the event title. */
+.hero-title-row .title-logo{order:1}
