@@ -70,3 +70,6 @@ body,button,.hero-brand,.brand,.hero-brand span{font-family:'Noto Sans KR',sans-
 .hero-logo-crop{width:100%;aspect-ratio:1;overflow:hidden;position:relative}
 .hero-logo-crop .hero-logo{display:block;width:100%;height:100%;object-fit:contain;transform:scale(2.2);transform-origin:50% 51%}
 @media(max-width:600px){.sg-hero .hero-brand{width:108px;padding:8px}}
+
+/* Blend the supplied logo paper into the hero photograph. */
+.sg-hero .hero-brand{background:transparent;border:0;box-shadow:none;border-radius:0;backdrop-filter:none;mix-blend-mode:multiply}
