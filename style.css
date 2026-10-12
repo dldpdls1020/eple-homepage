@@ -80,3 +80,6 @@ body,button,.hero-brand,.brand,.hero-brand span{font-family:'Noto Sans KR',sans-
 
 /* Place the signature after the event title. */
 .hero-title-row .title-logo{order:1}
+
+/* Match the persistent Naver action to the event CTA. */
+.sticky-booking a:last-child{background:#f6d7bd!important;color:#593a29!important;border-color:#e7ba98}.sticky-booking a:last-child:hover,.sticky-booking a:last-child:focus-visible{background:#f1c8a7!important}
