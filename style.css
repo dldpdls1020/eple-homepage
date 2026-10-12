@@ -51,3 +51,11 @@ body,button,.hero-brand,.brand,.hero-brand span{font-family:'Noto Sans KR',sans-
 @media(prefers-reduced-motion:reduce){.hero-slide{transition:none}}
 
 @media(min-width:1000px){.hero-slide{object-position:50% 30%}.hero-slide:nth-child(3){object-position:50% 39%}.hero-slide:nth-child(4){object-position:50% 36%}}
+
+/* A warm focal point for the opening event CTA. */
+.sg-hero .event-highlight{display:flex;align-items:center;justify-content:center;gap:14px;background:#f6d7bd;color:#593a29;border:1px solid #e7ba98;border-radius:14px;box-shadow:0 7px 20px #b4754224;font-weight:700;animation:event-soft-pop 4.4s ease-in-out infinite;transform-origin:center;transition:background .2s,box-shadow .2s}
+.sg-hero .event-highlight strong{font-weight:900}.sg-hero .event-highlight>span:last-child{font-size:1.25em}
+.sg-hero .event-highlight:hover,.sg-hero .event-highlight:focus-visible{background:#f1c8a7;box-shadow:0 9px 24px #b4754233;animation-play-state:paused;transform:none}
+.sg-hero .event-highlight:focus-visible{outline:3px solid #805239;outline-offset:5px}
+@keyframes event-soft-pop{0%,58%,100%{transform:translateY(0) scale(1)}66%{transform:translateY(-5px) scale(1.012)}73%{transform:translateY(1px) scale(.998)}79%{transform:translateY(-2px) scale(1.004)}85%{transform:translateY(0) scale(1)}}
+@media(prefers-reduced-motion:reduce){.sg-hero .event-highlight{animation:none;transition:none}}
