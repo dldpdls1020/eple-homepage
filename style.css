@@ -59,3 +59,8 @@ body,button,.hero-brand,.brand,.hero-brand span{font-family:'Noto Sans KR',sans-
 .sg-hero .event-highlight:focus-visible{outline:3px solid #805239;outline-offset:5px}
 @keyframes event-soft-pop{0%,58%,100%{transform:translateY(0) scale(1)}66%{transform:translateY(-5px) scale(1.012)}73%{transform:translateY(1px) scale(.998)}79%{transform:translateY(-2px) scale(1.004)}85%{transform:translateY(0) scale(1)}}
 @media(prefers-reduced-motion:reduce){.sg-hero .event-highlight{animation:none;transition:none}}
+
+/* Refined YP signature, inspired by the studio's supplied monogram. */
+.sg-hero .hero-brand{left:28px;top:24px;width:158px;padding:12px 14px 15px;border-radius:3px;background:rgba(252,249,244,.94);border:1px solid rgba(255,255,255,.65);box-shadow:0 4px 24px #34291c0a;line-height:0;backdrop-filter:blur(10px)}
+.hero-logo{display:block;width:100%;height:auto}
+@media(max-width:600px){.sg-hero .hero-brand{left:18px;top:18px;width:120px;padding:9px 10px 12px}}
