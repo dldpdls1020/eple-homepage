@@ -90,3 +90,7 @@ body,button,.hero-brand,.brand,.hero-brand span{font-family:'Noto Sans KR',sans-
 
 /* Give the event price a stronger visual hierarchy. */
 .sg-hero h1 .hero-event-price{display:inline-block;font-size:1.3em;line-height:1.35;margin-top:5px}
+
+/* Larger consultation copy; reserve bold for the final invitation. */
+.sg-hero .hero-intro{font-size:18px}.sg-hero .hero-intro p{font-weight:400}.sg-hero .hero-intro strong{font-weight:700}
+@media(max-width:600px){.sg-hero .hero-intro{font-size:15px}}
