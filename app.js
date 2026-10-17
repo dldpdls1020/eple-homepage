@@ -1,50 +1,14 @@
+const reduced = matchMedia('(prefers-reduced-motion: reduce)');
+const video = document.querySelector('#hero-video');
+const play = document.querySelector('#video-play');
+function startVideo(){if(reduced.matches){video.pause();play.hidden=false;return;}video.muted=true;video.play().then(()=>play.hidden=true).catch(()=>play.hidden=false);}
+startVideo();
+play.addEventListener('click',()=>{video.play().then(()=>play.hidden=true).catch(()=>play.hidden=false);});
+document.addEventListener('visibilitychange',()=>{if(document.hidden)video.pause();else startVideo();});
+reduced.addEventListener('change',startVideo);
+const observer=new IntersectionObserver(entries=>{entries.forEach(entry=>{if(entry.isIntersecting&&!reduced.matches){entry.target.animate([{opacity:.3,transform:'translateY(24px)'},{opacity:1,transform:'translateY(-3px)',offset:.8},{opacity:1,transform:'translateY(0)'}],{duration:700,easing:'cubic-bezier(.2,.75,.3,1)'});}});},{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>observer.observe(el));
 const lightbox=document.querySelector('#lightbox');
-document.querySelectorAll('dialog').forEach(dialog=>{dialog.querySelectorAll('.close,.close-action').forEach(button=>button.addEventListener('click',()=>dialog.close()));dialog.addEventListener('click',event=>{if(event.target===dialog){const rect=dialog.getBoundingClientRect();if(event.clientX<rect.left||event.clientX>rect.right||event.clientY<rect.top||event.clientY>rect.bottom)dialog.close();}});});
-document.querySelectorAll('[data-image]').forEach(button=>button.addEventListener('click',()=>{const img=lightbox.querySelector('img');img.src=button.dataset.image;img.alt=button.dataset.caption;lightbox.querySelector('p').textContent=button.dataset.caption;lightbox.showModal();}));
-
-const motion=window.matchMedia('(prefers-reduced-motion: reduce)');
-const slides=[...document.querySelectorAll('.hero-slide')];
-let slideIndex=0, slideTimer;
-const nextSlide=()=>{
- const next=(slideIndex+1)%slides.length;
- if(!slides[next].complete||!slides[next].naturalWidth)return;
- slides[slideIndex].classList.remove('is-active');slides[slideIndex].setAttribute('aria-hidden','true');
- slideIndex=next;
- slides[slideIndex].classList.add('is-active');slides[slideIndex].setAttribute('aria-hidden','false');
-};
-const syncSlideshow=()=>{
- clearInterval(slideTimer);
- if(slides.length>1&&!document.hidden&&!motion.matches)slideTimer=setInterval(nextSlide,3000);
-};
-document.addEventListener('visibilitychange',syncSlideshow);
-motion.addEventListener('change',syncSlideshow);
-syncSlideshow();
-// Replay a small settling bounce only after an element leaves and re-enters view.
-// The document remains visible if motion is disabled or animation is unavailable.
-if('IntersectionObserver' in window && Element.prototype.animate){
- const active=new Map();
- const entered=new Set();
- const observer=new IntersectionObserver(entries=>{
-  entries.forEach(entry=>{
-   const element=entry.target;
-   if(!entry.isIntersecting){
-    entered.delete(element);
-    active.get(element)?.cancel();active.delete(element);
-    return;
-   }
-   if(entry.intersectionRatio<0.12||entered.has(element))return;
-   entered.add(element);
-   if(motion.matches)return;
-   const animation=element.animate([
-    {opacity:.45,transform:'translateY(20px) scale(.985)',offset:0},
-    {opacity:1,transform:'translateY(-4px) scale(1.004)',offset:.62},
-    {opacity:1,transform:'translateY(1px) scale(1)',offset:.82},
-    {opacity:1,transform:'translateY(0) scale(1)',offset:1}
-   ],{duration:760,easing:'cubic-bezier(.22,.65,.35,1)',fill:'none'});
-   active.set(element,animation);
-   animation.onfinish=()=>{if(active.get(element)===animation)active.delete(element);};
-  });
- },{threshold:[0,.12]});
- document.querySelectorAll('.sg-hero-content,.story-section h2,.story-quote,.story-evidence,.story-points article,.work,.review-card,.offer-card').forEach(el=>observer.observe(el));
- motion.addEventListener('change',()=>{if(motion.matches){active.forEach(animation=>animation.cancel());active.clear();}});
-}
+document.querySelectorAll('[data-image]').forEach(button=>button.addEventListener('click',()=>{const img=lightbox.querySelector('img');img.src=button.dataset.image;img.alt=button.querySelector('img').alt;lightbox.showModal();}));
+lightbox.querySelector('.close').addEventListener('click',()=>lightbox.close());
+lightbox.addEventListener('click',event=>{if(event.target===lightbox)lightbox.close();});
